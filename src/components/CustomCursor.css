@@ -1,0 +1,66 @@
+/* Oculta o cursor nativo apenas em dispositivos que suportam hover (desktop) */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  
+  a, button, input, textarea, [role="button"] {
+    cursor: none !important;
+  }
+}
+
+.cursor-glow {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(0, 0, 0, 0) 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Fica atrás do conteúdo principal mas acima do fundo escuro */
+  transition: opacity 0.3s;
+}
+
+.cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* Fica em cima de tudo */
+  transition: transform 0.1s ease-out;
+}
+
+.cursor-dot.active {
+  transform: translate(-50%, -50%) scale(0); /* Some quando em cima de links */
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgba(139, 92, 246, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  transition: transform 0.1s ease-out, width 0.2s, height 0.2s, border-color 0.2s, background-color 0.2s;
+  box-sizing: border-box;
+}
+
+.cursor-ring.active {
+  width: 45px;
+  height: 45px;
+  border-color: rgba(139, 92, 246, 0.8);
+  background-color: rgba(139, 92, 246, 0.15);
+  backdrop-filter: blur(2px);
+}
+
+/* Desabilita o cursor customizado em telas touch/mobile */
+@media (max-width: 768px), (pointer: coarse) {
+  .cursor-glow, .cursor-dot, .cursor-ring {
+    display: none !important;
+  }
+}

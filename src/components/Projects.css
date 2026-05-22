@@ -1,0 +1,123 @@
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(139, 92, 246, 0.1);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* DartSoft Ecosystem Styles */
+.dartsoft-ecosystem {
+  padding: 30px;
+  border-radius: 16px;
+  margin-bottom: 60px;
+  background: rgba(20, 15, 40, 0.4);
+  border: 1px solid var(--glass-border);
+}
+
+.ecosystem-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.ecosystem-header h3 {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.ecosystem-header p {
+  color: var(--text-secondary);
+}
+
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.ecosystem-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.ecosystem-card:hover {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: translateY(-3px);
+}
+
+.ecosystem-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ecosystem-card-top h4 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.ecosystem-icon {
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.ecosystem-card:hover .ecosystem-icon {
+  color: var(--accent-color);
+}
+
+.ecosystem-card p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.ecosystem-card .project-tags {
+  margin-top: auto;
+}
+
+/* Public Projects Header */
+.public-projects-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.public-projects-header h3 {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.public-projects-header p {
+  color: var(--text-secondary);
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+  .dartsoft-ecosystem {
+    padding: 15px;
+  }
+  .ecosystem-grid {
+    grid-template-columns: 1fr;
+  }
+  .ecosystem-header h3, .public-projects-header h3 {
+    font-size: 1.5rem;
+  }
+}
