@@ -72,10 +72,10 @@ const publicProjects = [
   },
   {
     id: 8,
-    title: 'FutbolTalent Pro',
+    title: 'FutbolTalent Pro (Cliente da Argentina)',
     description: 'Aplicativo mobile esportivo focado em talentos do futebol. Conta com feed de vídeos, fluxos complexos de validação e integrações com APIs.',
     tags: ['Flutter', 'Dart', 'Mobile'],
-    github: 'https://github.com/diovaniomota/FutbolTalentPro',
+    github: 'https://github.com/diovaniomota/futboltalent_pro',
   },
   {
     id: 9,
