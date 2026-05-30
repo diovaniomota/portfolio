@@ -45,7 +45,7 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
@@ -53,46 +53,22 @@ const Contact = () => {
     setSubmitStatus('idle');
     setSubmitMessage('');
 
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-    
-    if (!accessKey) {
-      console.warn("Web3Forms Access Key is missing! Set VITE_WEB3FORMS_ACCESS_KEY in .env");
-      setSubmitStatus('error');
-      setSubmitMessage('Erro de configuração: Chave de acesso do Web3Forms não configurada no arquivo .env.');
-      setIsSubmitting(false);
-      return;
-    }
-
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          subject: "Nova mensagem de contato do Portfólio",
-          from_name: "Portfólio Diovanio Mota"
-        }),
-      });
+      const phoneNumber = '5547988078816';
+      
+      const text = `Olá! Meu nome é ${formData.name} (${formData.email}).\n\nMensagem:\n${formData.message}`;
+      const encodedText = encodeURIComponent(text);
+      
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedText}`;
+      
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
-      const result = await response.json();
-
-      if (result.success) {
-        setSubmitStatus('success');
-        setSubmitMessage('Sua mensagem foi enviada com sucesso! Entrarei em contato em breve.');
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        setSubmitStatus('error');
-        setSubmitMessage(result.message || 'Ocorreu um erro ao enviar. Por favor, tente novamente.');
-      }
+      setSubmitStatus('success');
+      setSubmitMessage('Redirecionando para o WhatsApp... Sua mensagem está pronta para ser enviada!');
+      setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       setSubmitStatus('error');
-      setSubmitMessage('Erro de conexão. Por favor, verifique sua internet e tente novamente.');
+      setSubmitMessage('Ocorreu um erro ao abrir o WhatsApp. Por favor, tente novamente.');
     } finally {
       setIsSubmitting(false);
     }
