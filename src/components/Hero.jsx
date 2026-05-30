@@ -75,7 +75,7 @@ const Hero = () => {
           <a href="#projects" className="btn btn-primary">
             Ver Projetos <ArrowRight size={20} />
           </a>
-          <a href="/curriculo.pdf" className="btn glass btn-glow" target="_blank" rel="noreferrer">
+          <a href="/curriculo.pdf" download="Currículo Diovanio.pdf" className="btn glass btn-glow" target="_blank" rel="noreferrer">
             Baixar Currículo <Download size={20} />
           </a>
         </div>
