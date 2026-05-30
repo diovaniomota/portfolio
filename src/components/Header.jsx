@@ -53,7 +53,7 @@ const Header = () => {
         <div className="mobile-socials">
           <a href="https://github.com/diovaniomota" target="_blank" rel="noreferrer"><FaGithub size={24} /></a>
           <a href="https://www.linkedin.com/in/diovaniomota/?skipRedirect=true" target="_blank" rel="noreferrer"><FaLinkedin size={24} /></a>
-          <a href="mailto:email@example.com"><Mail size={24} /></a>
+          <a href="mailto:diovaniomotaa@gmail.com"><Mail size={24} /></a>
         </div>
       </div>
     </header>

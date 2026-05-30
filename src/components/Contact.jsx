@@ -1,8 +1,103 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import './Contact.css';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('idle'); // 'idle' | 'success' | 'error'
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value
+    }));
+    // Clear error when user types
+    if (errors[id]) {
+      setErrors((prev) => ({
+        ...prev,
+        [id]: ''
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) {
+      newErrors.name = 'Nome é obrigatório';
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email é obrigatório';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Formato de email inválido';
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = 'Mensagem é obrigatória';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setSubmitMessage('');
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    
+    if (!accessKey) {
+      console.warn("Web3Forms Access Key is missing! Set VITE_WEB3FORMS_ACCESS_KEY in .env");
+      setSubmitStatus('error');
+      setSubmitMessage('Erro de configuração: Chave de acesso do Web3Forms não configurada no arquivo .env.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: "Nova mensagem de contato do Portfólio",
+          from_name: "Portfólio Diovanio Mota"
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setSubmitMessage('Sua mensagem foi enviada com sucesso! Entrarei em contato em breve.');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        setSubmitMessage(result.message || 'Ocorreu um erro ao enviar. Por favor, tente novamente.');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setSubmitMessage('Erro de conexão. Por favor, verifique sua internet e tente novamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="section">
       <div className="container">
@@ -23,14 +118,14 @@ const Contact = () => {
                 <div className="info-icon"><Mail size={20} /></div>
                 <div>
                   <h4>Email</h4>
-                  <p>diovaniomotaa@gmail.com</p>
+                  <p><a href="mailto:diovaniomotaa@gmail.com">diovaniomotaa@gmail.com</a></p>
                 </div>
               </div>
               <div className="info-item">
                 <div className="info-icon"><Phone size={20} /></div>
                 <div>
                   <h4>Telefone</h4>
-                  <p>(48) 98858-3186</p>
+                  <p><a href="tel:+5547988078816">(47) 98807-8816</a></p>
                 </div>
               </div>
               <div className="info-item">
@@ -43,24 +138,58 @@ const Contact = () => {
             </div>
           </div>
           
-          <form className="contact-form glass">
+          <form onSubmit={handleSubmit} className="contact-form glass">
             <div className="form-group">
               <label htmlFor="name">Nome</label>
-              <input type="text" id="name" placeholder="Seu nome completo" />
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Seu nome completo" 
+                value={formData.name}
+                onChange={handleChange}
+                className={errors.name ? 'input-error' : ''}
+              />
+              {errors.name && <span className="error-message">{errors.name}</span>}
             </div>
             
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" id="email" placeholder="seu@email.com" />
+              <input 
+                type="email" 
+                id="email" 
+                placeholder="seu@email.com" 
+                value={formData.email}
+                onChange={handleChange}
+                className={errors.email ? 'input-error' : ''}
+              />
+              {errors.email && <span className="error-message">{errors.email}</span>}
             </div>
             
             <div className="form-group">
               <label htmlFor="message">Mensagem</label>
-              <textarea id="message" rows="5" placeholder="Como posso ajudar?"></textarea>
+              <textarea 
+                id="message" 
+                rows="5" 
+                placeholder="Como posso ajudar?"
+                value={formData.message}
+                onChange={handleChange}
+                className={errors.message ? 'input-error' : ''}
+              ></textarea>
+              {errors.message && <span className="error-message">{errors.message}</span>}
             </div>
+
+            {submitStatus !== 'idle' && (
+              <div className={`form-feedback ${submitStatus} glass`}>
+                {submitMessage}
+              </div>
+            )}
             
-            <button type="submit" className="btn btn-primary submit-btn">
-              Enviar Mensagem <Send size={18} />
+            <button 
+              type="submit" 
+              className="btn btn-primary submit-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'} <Send size={18} />
             </button>
           </form>
         </div>
