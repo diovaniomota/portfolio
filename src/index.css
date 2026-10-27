@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+:root {
+  color-scheme: light;
+  --bg-color: #f2f1ec;
+  --bg-soft: #e7e5de;
+  --paper: #fbfaf7;
+  --text-primary: #16181a;
+  --text-secondary: #5c6166;
+  --accent-color: #0e9e86;
+  --accent-dark: #0a7c6a;
+  --glass-bg: #fbfaf7;
+  --glass-border: #cfcbc0;
+  --glass-hover: #fbfaf7;
+  --regua: #cfcbc0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Manrope', sans-serif;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.glass {
+  background: var(--paper);
+  border: 1px solid var(--regua);
+  border-radius: 2px;
+  box-shadow: 3px 3px 0 rgba(22, 24, 26, 0.06);
+  transition: border-color 0.15s ease;
+}
+
+.glass:hover {
+  background: var(--paper);
+  border-color: var(--accent-color);
+  transform: none;
+}
+
+.text-gradient {
+  color: var(--accent-color);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.section {
+  padding: 100px 0;
+  scroll-margin-top: 84px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 28px;
+  text-align: left;
+  line-height: 1.05;
+}
+
+::selection {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: #cfcbc0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+/* Responsividade Global para Mobile */
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  .container {
+    padding: 0 16px;
+  }
+}

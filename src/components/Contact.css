@@ -1,0 +1,166 @@
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 992px) {
+  .contact-content {
+    grid-template-columns: 1fr 1.5fr;
+  }
+}
+
+.contact-info, .contact-form {
+  padding: 40px;
+}
+
+.contact-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.contact-desc {
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.info-items {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.info-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(14, 158, 134, 0.12);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info-item h4 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.info-item p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.info-item p a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.info-item p a:hover {
+  color: var(--accent-color);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 6px;
+  background: var(--paper);
+  border: 1px solid var(--regua);
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: #fff;
+}
+
+.submit-btn {
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.form-group input.input-error,
+.form-group textarea.input-error {
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.form-group input.input-error:focus,
+.form-group textarea.input-error:focus {
+  border-color: #ef4444;
+}
+
+.error-message {
+  color: #f87171;
+  font-size: 0.8rem;
+  margin-top: -2px;
+}
+
+.form-feedback {
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  margin-top: 10px;
+  text-align: center;
+  animation: formFeedbackFadeIn 0.3s ease;
+}
+
+.form-feedback.success {
+  background: rgba(14, 158, 134, 0.12) !important;
+  border: 1px solid rgba(14, 158, 134, 0.35) !important;
+  color: var(--accent-dark);
+}
+
+.form-feedback.error {
+  background: rgba(239, 68, 68, 0.1) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  color: #f87171;
+}
+
+@keyframes formFeedbackFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
